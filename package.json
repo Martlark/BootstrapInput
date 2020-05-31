@@ -1,8 +1,8 @@
 {
   "name": "bootstrap-input-react",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Bootstrap inputs for react that manage themselves",
-  "main": "index.jsx",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Martlark/BootstrapInput.git"
