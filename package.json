@@ -1,0 +1,51 @@
+{
+  "name": "bootstrap-input-react",
+  "version": "1.0.0",
+  "description": "Bootstrap inputs for react that manage themselves",
+  "main": "index.jsx",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Martlark/BootstrapInput.git"
+  },
+  "keywords": [
+    "Bootstrap",
+    "input",
+    "select",
+    "radio",
+    "checkbox",
+    "textinput",
+    "react"
+  ],
+  "author": "Andrew Rowe",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/Martlark/BootstrapInput/issues"
+  },
+  "homepage": "https://github.com/Martlark/BootstrapInput#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.6.2",
+    "babel-preset-react-app": "^3.1.2",
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "babel-loader": "^8.0.6",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "prop-types": "^15.7.2",
+    "informed": "^2.11.9",
+    "classnames": "^2.2.6",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.9",
+    "webpack-glob-entry": "^2.1.1"
+  },
+  "scripts": {
+    "babel": "npx babel app/jsx --out-dir app/static/src/jsx",
+    "babel-watch": "webpack -p --watch --progress  --env=development --config webpack.config.js",
+    "build": "webpack -p --progress --config webpack.config.js",
+    "dev-build": "webpack --progress -d --config webpack.config.js",
+    "watch": "webpack --progress -d --config webpack.config.js --watch"
+  }
+}
