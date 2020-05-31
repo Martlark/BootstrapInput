@@ -22,7 +22,9 @@
     "url": "https://github.com/Martlark/BootstrapInput/issues"
   },
   "homepage": "https://github.com/Martlark/BootstrapInput#readme",
-  "dependencies": {},
+  "dependencies": {
+    "prop-types": "^15.7.2"
+  },
   "devDependencies": {
     "@babel/cli": "^7.6.2",
     "babel-preset-react-app": "^3.1.2",
