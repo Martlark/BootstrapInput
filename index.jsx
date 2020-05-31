@@ -87,9 +87,9 @@ export default class BootstrapInput extends Component {
                 return options.map(option =>
                     <div className={"form-check"}>
                         <label className={this.props.labelClassName}>
-                            <input className={"form-check-input"} name={name} type={type} value={option.value}
+                            <input className={"form-check-input"} name={name} type={type} value={option.value||option}
                                    checked={option.value == this.state.value}
-                                   onChange={evt => this.onChange(evt)} {...this.inputProps} />{option.label}
+                                   onChange={evt => this.onChange(evt)} {...this.inputProps} />{option.label||option}
                         </label>
                     </div>
                 );

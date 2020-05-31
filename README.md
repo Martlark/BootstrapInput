@@ -1,5 +1,6 @@
 # bootstrap-input-react
-Bootstrap inputs for react that manage themselves.
+
+Bootstrap (or not) inputs for react that manage themselves.
 
 Installation.
 =============
@@ -70,11 +71,40 @@ HTML input element.
 Select
 ------
 
+To create a select input, set the type="select", and provide a list of the select options as either a 
+simple list or a list of objects with _label_ and _value_. As follows:
+
 ```jsx
 <BootstrapInput parent={this} name="select" type="select" label="select" 
     options={[{label: 'a',value:1}, {label: 'b',value: 2}, {label: 'c',value: 3}]}
 />
+<BootstrapInput parent={this} name="selectSimple" type="select" label="select simple" 
+    options={[4,5,6]}
+/>
 ```
+
+Radio button group
+------------------
+
+Very similar to the select input.  Use type="radio" and provide a list of the radio options as either a 
+simple list or a list of objects with _label_ and _value_. As follows:
+
+```jsx
+    <BootstrapInput parent={this} name="radio" type="radio" label={"radio"} options={[{label: 'a',value:1}, {label: 'b',value: 2}, {label: 'c',value: 3}]}/>
+```
+
+The state value, provided as _name_, will have the value of the selected radio option.
+
+Checkbox
+--------
+
+A checkbox control is the same as an input excepting the state value will be true or false.  Example:
+
+```jsx
+    <BootstrapInput parent={this} name="checkbox" type="checkbox" label="Checkbox"/>
+
+```
+
 
 Requirements.
 =============
