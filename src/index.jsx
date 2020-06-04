@@ -5,20 +5,11 @@ export default class BootstrapInput extends Component {
     constructor(props) {
         super(props);
         this.inputProps = {};
-        this.props.id = props.id || Math.random();
-        this.state = {value: props.parent.state[props.name]};
+        this.state = {value: props.parent.state[props.name], id: props.id || Math.random()};
         // remove specific props and pass rest to the input control
         Object.keys(this.props).filter(prop => !BootstrapInput.propTypes.hasOwnProperty(prop)).forEach(prop => this.inputProps[prop] = this.props[prop]);
     }
 
-    stringToNumber(str) {
-        return [...str].reduce((accum, c) => accum += c.charCodeAt(), 0);
-    }
-
-    /**
-     * https://reactjs.org/docs/typechecking-with-proptypes.html
-     * @type {{parent: Validator<NonNullable<React.Component<P, S>>>, name: Validator<NonNullable<string>>, label: Requireable<string>, type: Requireable<string>}}
-     */
     static propTypes = {
         name: PropTypes.string.isRequired,
         parent: PropTypes.instanceOf(Component).isRequired,
@@ -26,6 +17,9 @@ export default class BootstrapInput extends Component {
         label: PropTypes.string,
         onChange: PropTypes.func,
         options: PropTypes.array,
+        inputClassName: PropTypes.string,
+        inlineClassName: PropTypes.string,
+        labelClassName: PropTypes.string,
     };
 
     static defaultProps = {
@@ -62,7 +56,7 @@ export default class BootstrapInput extends Component {
             return <div className={this.props.inlineClassName}>
                 <label
                     className={this.props.labelClassName}
-                    htmlFor={this.props.id}>{this.props.label}{inputControl}</label>
+                    htmlFor={this.state.id}>{this.props.label}{inputControl}</label>
             </div>;
         }
         return inputControl;
@@ -70,7 +64,7 @@ export default class BootstrapInput extends Component {
 
     render() {
         const state = this.props.parent.state;
-        const {name, type, label, options} = this.props;
+        let {name, type, label, options} = this.props;
 
         switch (type) {
             case 'textarea':
@@ -85,21 +79,21 @@ export default class BootstrapInput extends Component {
                 </div>);
             case 'radio':
                 return options.map(option =>
-                    <div className={"form-check"}>
+                    <div className={"form-check"} key={option.label || option}>
                         <label className={this.props.labelClassName}>
-                            <input className={"form-check-input"} name={name} type={type} value={option.value||option}
+                            <input className={"form-check-input"} name={name} type={type} value={option.value || option}
                                    checked={option.value == this.state.value}
-                                   onChange={evt => this.onChange(evt)} {...this.inputProps} />{option.label||option}
+                                   onChange={evt => this.onChange(evt)} {...this.inputProps} />{option.label || option}
                         </label>
                     </div>
                 );
             case 'select':
                 return <div className={"form-group"}>
-                    <label className={this.props.labelClassName} htmlFor={this.props.id}>{label}</label>
+                    <label className={this.props.labelClassName} htmlFor={this.state.id}>{label}</label>
                     <select name={name} value={state[name]} className={"form-control"}
                             onChange={evt => this.onChange(evt)} {...this.inputProps}>
-                        {options.map(option => <option
-                            value={option.value || option}>{option.label || option}</option>)}
+                        {options.map(option => <option key={option.label || option}
+                                                       value={option.value || option}>{option.label || option}</option>)}
                     </select>
                 </div>;
             default:
@@ -110,3 +104,4 @@ export default class BootstrapInput extends Component {
     }
 
 }
+
