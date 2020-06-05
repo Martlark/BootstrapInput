@@ -17,7 +17,8 @@ module.exports = (env) => {
                 filename:
                     '[name].js',
                 sourceMapFilename: "[name].js.map",
-                path: path.resolve(__dirname, 'dist')
+                path: path.resolve(__dirname, 'dist'),
+                libraryTarget: 'commonjs2'
             }
         ,
         module: {

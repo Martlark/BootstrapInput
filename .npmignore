@@ -1,0 +1,8 @@
+src
+example
+webpack.config.js
+node_modules
+.git
+.gitignore
+.idea
+.npmignore

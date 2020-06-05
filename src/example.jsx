@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import BootstrapInput from "./index.jsx";
-import PropTypes from "prop-types"
 
 class Content extends Component {
     constructor(props) {
