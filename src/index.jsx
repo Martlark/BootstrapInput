@@ -20,6 +20,7 @@ export default class BootstrapInput extends Component {
         inputClassName: PropTypes.string,
         inlineClassName: PropTypes.string,
         labelClassName: PropTypes.string,
+        labelPos: PropTypes.string,
     };
 
     static defaultProps = {
@@ -53,6 +54,13 @@ export default class BootstrapInput extends Component {
 
     renderWithLabel(inputControl) {
         if (this.props.label) {
+            if (this.props.labelPos === "right") {
+                return <div className={this.props.inlineClassName}>
+                    <label
+                        className={this.props.labelClassName}
+                        htmlFor={this.state.id}>{inputControl}{this.props.label}</label>
+                </div>;
+            }
             return <div className={this.props.inlineClassName}>
                 <label
                     className={this.props.labelClassName}
@@ -68,40 +76,74 @@ export default class BootstrapInput extends Component {
 
         switch (type) {
             case 'textarea':
-                return this.renderWithLabel(<textarea className={"form-control"} value={state[name]}
+                return this.renderWithLabel(<textarea className={"form-control"} value={state[name]} id={this.state.id}
                                                       onChange={evt => this.onChange(evt)} {...this.inputProps} />);
             case 'checkbox':
-                return (<div className={"form-check"}>
-                    <label className="form-check-label">
-                        <input className="form-check-input" type={type} value={state[name]}
-                               onChange={evt => this.onChange(evt)} {...this.inputProps} />{this.props.label}
-                    </label>
-                </div>);
+                return this.renderCheckbox(type, state, name);
             case 'radio':
-                return options.map(option =>
-                    <div className={"form-check"} key={option.label || option}>
-                        <label className={this.props.labelClassName}>
-                            <input className={"form-check-input"} name={name} type={type} value={option.value || option}
-                                   checked={option.value == this.state.value}
-                                   onChange={evt => this.onChange(evt)} {...this.inputProps} />{option.label || option}
-                        </label>
-                    </div>
-                );
+                return this.renderRadio(options, name, type);
             case 'select':
-                return <div className={"form-group"}>
-                    <label className={this.props.labelClassName} htmlFor={this.state.id}>{label}</label>
-                    <select name={name} value={state[name]} className={"form-control"}
-                            onChange={evt => this.onChange(evt)} {...this.inputProps}>
-                        {options.map(option => <option key={option.label || option}
-                                                       value={option.value || option}>{option.label || option}</option>)}
-                    </select>
-                </div>;
+                return this.renderSelect(label, name, state, options);
             default:
                 return this.renderWithLabel(<input className={this.props.inputClassName} type={type} value={state[name]}
-                                                   checked={state[name]}
+                                                   checked={state[name]} id={this.state.id}
                                                    onChange={evt => this.onChange(evt)} {...this.inputProps} />)
         }
     }
 
+    renderSelect(label, name, state, options) {
+        let leftLabel = <label className={this.props.labelClassName} htmlFor={this.state.id}>{label}</label>;
+        let rightLabel = "";
+        if (this.props.labelPos === "right") {
+            rightLabel = leftLabel;
+            leftLabel = "";
+        }
+        return <div className={"form-group"}>
+            {leftLabel}
+            <select name={name} value={state[name]} className={"form-control"} id={this.state.id}
+                    onChange={evt => this.onChange(evt)} {...this.inputProps}>
+                {options.map(option => <option key={option.label || option}
+                                               value={option.value || option}>{option.label || option}</option>)}
+            </select>
+            {rightLabel}
+        </div>;
+    }
+
+    renderCheckbox(type, state, name) {
+        let rightLabel = this.props.label;
+        let leftLabel = "";
+        if (this.props.labelPos === "left") {
+            leftLabel = rightLabel;
+            rightLabel = "";
+        }
+        return (<div className={"form-check"}>
+            <label className="form-check-label">
+                {leftLabel}<input className="form-check-input" type={type} value={state[name]}
+                                  checked={state[name] ? true : false}
+                                  onChange={evt => this.onChange(evt)} {...this.inputProps} />{rightLabel}
+            </label>
+        </div>);
+    }
+
+    renderRadio(options, name, type) {
+        return options.map(option => {
+            let rightLabel = option.label || option;
+            let leftLabel = "";
+            const label = rightLabel;
+            if (this.props.labelPos === "left") {
+                leftLabel = rightLabel;
+                rightLabel = "";
+            }
+            const input = <input className={"form-check-input"} name={name} type={type}
+                                 value={option.value || option}
+                                 checked={option.value == this.state.value}
+                                 onChange={evt => this.onChange(evt)} {...this.inputProps} />;
+            return (<div className={"form-check"} key={label}>
+                <label className={this.props.labelClassName}>
+                    {leftLabel}{input}{rightLabel}
+                </label>
+            </div>)
+        });
+    }
 }
 

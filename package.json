@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-input-react",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "description": "Bootstrap inputs for react that manage themselves",
   "main": "dist/index.js",
   "repository": {

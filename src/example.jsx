@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
+// import BootstrapInput from "./../dist/index.js";
 import BootstrapInput from "./index.jsx";
 
 class Content extends Component {
@@ -23,44 +24,27 @@ class Content extends Component {
                 <BootstrapInput parent={this} name="select" type="select" label="select"
                                 options={[{label: 'a', value: 1}, {label: 'b', value: 2}, {label: 'c', value: 3}]}/>
                 <hr/>
+                <BootstrapInput parent={this} name="selectPlain" type="select" label="select plain"
+                                options={['one','two','three']}/>
+                <hr/>
+                <BootstrapInput parent={this} name="selectRight" type="select" label="select right label" labelPos={"right"}
+                                options={['one','two','three']}/>
+                <hr/>
                 <BootstrapInput parent={this} name="numeric" type="number" label="numeric:" min="1"/>
                 <hr/>
+                <BootstrapInput parent={this} name="email" type="email" label=": email right label" labelPos={"right"}/>
+                <hr/>
                 <BootstrapInput parent={this} name="checkbox" type="checkbox" label="Checkbox"/>
+                <BootstrapInput parent={this} name="checkboxLeft" type="checkbox" label="Left side" labelPos={"left"}/>
                 <BootstrapInput parent={this} name="checkboxNoLabel" type="checkbox"/>
                 <hr/>
                 <BootstrapInput parent={this} name="textArea" type="textarea" label="Text Area:"/>
                 <hr/>
-                <h3>Output</h3>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>radio:</td>
-                            <td>{this.state.radio}</td>
-                        </tr>
-                        <tr>
-                            <td>select:</td>
-                            <td>{this.state.select}</td>
-                        </tr>
-                        <tr>
-                            <td>numeric:</td>
-                            <td>{this.state.numeric}</td>
-                        </tr>
-                        <tr>
-                            <td>checkbox:</td>
-                            <td>{this.state.checkbox ? 'true' : 'false'}</td>
-                        </tr>
-                        <tr>
-                            <td>checkboxNoLabel:</td>
-                            <td>{this.state.checkboxNoLabel ? 'true' : 'false'}</td>
-                        </tr>
-                        <tr>
-                            <td>textArea:</td>
-                            <td>
-                                <pre>{this.state.textArea}</pre>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <BootstrapInput parent={this} name="textAreaRight" type="textarea" label=": Text Area Right" labelPos={"right"}/>
+                <hr/>
+                <h3>State</h3>
+                <pre>{JSON.stringify(this.state)}
+                </pre>
             </div>
         )
     }

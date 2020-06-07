@@ -105,9 +105,27 @@ A checkbox control is the same as an input excepting the state value will be tru
 
 ```
 
+Labels
+======
+
+Labels are connected to each input by a random number *id* if not supplied.  For checkboxes and radios the
+label is located to the right.  For all others it is on the left.  This default can be overridden by
+setting the *labelPos* prop to either "left" or "right".
 
 Requirements.
 =============
 
 To properly style the inputs you should have bootstrap 4 CSS included somewhere
 
+Release history
+===============
+
+* 1.1.5 -  6-Jun-2020 now working corectly as a package
+* 1.1.6 -  6-Jun-2020 fixed bug when checkbox value not initially set
+* 1.1.7 -  7-Jun-2020 added control for label position. Added missing htmlFor setup.
+
+Thanks to.
+==========
+
+* https://www.sitepoint.com/beginners-guide-webpack-module-bundling/
+* https://jasonwatmore.com/post/2018/04/14/react-npm-how-to-publish-a-react-component-to-npm
