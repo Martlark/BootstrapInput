@@ -51,6 +51,8 @@ Creates a text input using the state property of _numeric_ with the initial valu
    this.state.numeric
 ```
 
+Refer to *example.jsx* in the package for more examples.
+
 Input types.
 ============
 
@@ -112,8 +114,25 @@ Labels are connected to each input by a random number *id* if not supplied.  For
 label is located to the right.  For all others it is on the left.  This default can be overridden by
 setting the *labelPos* prop to either "left" or "right".
 
-Only when you add a *label* prop does the full Bootstrap <div> input styling get applied.  Without a *label*
-prop the <label> element is not added.
+Only when you add a *label* prop does the full Bootstrap `<div>` input styling get applied.  Without a *label*
+prop the `<label>` and `div` elements are not added.
+
+Props.
+======
+
+|name|   |default|description|
+|----|---|-------|----|
+|parent|required| |the parent element where state should be managed|
+|name|required| |the name of the state property. Also becomes the input name [name=name]|
+|type|optional|text|input type, one of: text, number, select, textarea, radio|
+|value|optional|null|initial value of the input.|
+|label|optional| |label name to attach to input|
+|labelPos|optional| |left or right as required|
+|onChange|optional| |method to call after change.  function(event, value)|
+|options|required for radio and select| |list of label and values for the options|
+|inputClassName|optional| bootstrap class dependent on type| class name for input|
+|inlineClassName|optional|form-check-inline| class name for surrounding div of input and textarea |
+|labelClassName|optional|form-check-label| class name for surrounding label|
 
 Requirements.
 =============
