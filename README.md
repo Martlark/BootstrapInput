@@ -125,7 +125,7 @@ Props.
 |parent|required| |the parent element where state should be managed|
 |name|required| |the name of the state property. Also becomes the input name [name=name]|
 |type|optional|text|input type, one of: text, number, select, textarea, radio|
-|value|optional|null|initial value of the input.|
+|value|optional|null|initial value of the input.  If not supplied state is initialized on first onChange.|
 |label|optional| |label name to attach to input|
 |labelPos|optional| |left or right as required|
 |onChange|optional| |method to call after change.  function(event, value)|
