@@ -5,9 +5,30 @@ export default class BootstrapInput extends Component {
     constructor(props) {
         super(props);
         this.inputProps = {};
-        this.state = {value: props.parent.state[props.name], id: props.id || Math.random()};
+        this.state = {
+            value: props.parent.state[props.name],
+            id: props.id || Math.random(),
+            inputClassName: this.getInputClassName(props)
+        };
+
         // remove specific props and pass rest to the input control
         Object.keys(this.props).filter(prop => !BootstrapInput.propTypes.hasOwnProperty(prop)).forEach(prop => this.inputProps[prop] = this.props[prop]);
+    }
+
+    getInputClassName(props) {
+        let className = props.inputClassName;
+        if (!className) {
+            className = "form-control";
+            switch (props.type) {
+                case "checkbox":
+                    className = "form-check-input";
+            }
+            if (!props.label) {
+                /* bootstrap input default class has absolute, without a surrounding boostrap div and label this is stupid so remove if not set by prop*/
+                className = "";
+            }
+        }
+        return className
     }
 
     static propTypes = {
@@ -26,7 +47,6 @@ export default class BootstrapInput extends Component {
     static defaultProps = {
         type: 'text',
         label: '',
-        inputClassName: "form-control",
         inlineClassName: "form-check-inline",
         labelClassName: "form-check-label",
         options: ['set', 'options=[1,2,3]', 'for selections'],
@@ -35,10 +55,6 @@ export default class BootstrapInput extends Component {
     onChange = (evt) => {
         let {value, tagName, type, checked} = evt.target;
         const {name, parent} = this.props;
-        const currentValue = parent.state[name];
-        if (!isNaN(currentValue)) {
-            value = Number(value)
-        }
         switch (type) {
             case 'checkbox':
                 value = checked;
@@ -85,19 +101,19 @@ export default class BootstrapInput extends Component {
             case 'select':
                 return this.renderSelect(label, name, state, options);
             default:
-                return this.renderWithLabel(<input className={this.props.inputClassName} type={type} value={state[name]}
+                return this.renderWithLabel(<input className={this.state.inputClassName} type={type} value={state[name]}
                                                    checked={state[name]} id={this.state.id}
                                                    onChange={evt => this.onChange(evt)} {...this.inputProps} />)
         }
     }
 
     renderSelect(label, name, state, options) {
-        const input = <select name={name} value={state[name]} className={"form-control"} id={this.state.id}
-                    onChange={evt => this.onChange(evt)} {...this.inputProps}>
-                {options.map(option => <option key={option.label || option}
-                                               value={option.value || option}>{option.label || option}</option>)}
-            </select>;
-        if(!this.props.label){
+        const input = <select name={name} value={state[name]} className={this.state.inputClassName} id={this.state.id}
+                              onChange={evt => this.onChange(evt)} {...this.inputProps}>
+            {options.map(option => <option key={option.label || option}
+                                           value={option.value || option}>{option.label || option}</option>)}
+        </select>;
+        if (!this.props.label) {
             return input;
         }
         let leftLabel = <label className={this.props.labelClassName} htmlFor={this.state.id}>{label}</label>;
@@ -114,10 +130,10 @@ export default class BootstrapInput extends Component {
     }
 
     renderCheckbox(type, state, name) {
-        const input = <input className="form-check-input" type={type} value={state[name]}
-                                  checked={state[name] ? true : false}
-                                  onChange={evt => this.onChange(evt)} {...this.inputProps} />;
-        if( !this.props.label){
+        const input = <input className={this.state.inputClassName} type={type} value={state[name]}
+                             checked={state[name] ? true : false}
+                             onChange={evt => this.onChange(evt)} {...this.inputProps} />;
+        if (!this.props.label) {
             return input;
         }
         let rightLabel = this.props.label;
