@@ -112,6 +112,9 @@ Labels are connected to each input by a random number *id* if not supplied.  For
 label is located to the right.  For all others it is on the left.  This default can be overridden by
 setting the *labelPos* prop to either "left" or "right".
 
+Only when you add a *label* prop does the full Bootstrap <div> input styling get applied.  Without a *label*
+prop the <label> element is not added.
+
 Requirements.
 =============
 
@@ -123,6 +126,7 @@ Release history
 * 1.1.5 -  6-Jun-2020 now working corectly as a package
 * 1.1.6 -  6-Jun-2020 fixed bug when checkbox value not initially set
 * 1.1.7 -  7-Jun-2020 added control for label position. Added missing htmlFor setup.
+* 1.1.8 -  8-Jun-2020 remove div and label when no label.
 
 Thanks to.
 ==========

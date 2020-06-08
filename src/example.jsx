@@ -43,7 +43,7 @@ class Content extends Component {
                 <BootstrapInput parent={this} name="textAreaRight" type="textarea" label=": Text Area Right" labelPos={"right"}/>
                 <hr/>
                 <h3>State</h3>
-                <pre>{JSON.stringify(this.state)}
+                <pre>{JSON.stringify(this.state).replace(/,"/g, ',\n"')}
                 </pre>
             </div>
         )

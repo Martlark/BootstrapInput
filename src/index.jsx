@@ -92,6 +92,14 @@ export default class BootstrapInput extends Component {
     }
 
     renderSelect(label, name, state, options) {
+        const input = <select name={name} value={state[name]} className={"form-control"} id={this.state.id}
+                    onChange={evt => this.onChange(evt)} {...this.inputProps}>
+                {options.map(option => <option key={option.label || option}
+                                               value={option.value || option}>{option.label || option}</option>)}
+            </select>;
+        if(!this.props.label){
+            return input;
+        }
         let leftLabel = <label className={this.props.labelClassName} htmlFor={this.state.id}>{label}</label>;
         let rightLabel = "";
         if (this.props.labelPos === "right") {
@@ -100,16 +108,18 @@ export default class BootstrapInput extends Component {
         }
         return <div className={"form-group"}>
             {leftLabel}
-            <select name={name} value={state[name]} className={"form-control"} id={this.state.id}
-                    onChange={evt => this.onChange(evt)} {...this.inputProps}>
-                {options.map(option => <option key={option.label || option}
-                                               value={option.value || option}>{option.label || option}</option>)}
-            </select>
+            {input}
             {rightLabel}
         </div>;
     }
 
     renderCheckbox(type, state, name) {
+        const input = <input className="form-check-input" type={type} value={state[name]}
+                                  checked={state[name] ? true : false}
+                                  onChange={evt => this.onChange(evt)} {...this.inputProps} />;
+        if( !this.props.label){
+            return input;
+        }
         let rightLabel = this.props.label;
         let leftLabel = "";
         if (this.props.labelPos === "left") {
@@ -118,9 +128,7 @@ export default class BootstrapInput extends Component {
         }
         return (<div className={"form-check"}>
             <label className="form-check-label">
-                {leftLabel}<input className="form-check-input" type={type} value={state[name]}
-                                  checked={state[name] ? true : false}
-                                  onChange={evt => this.onChange(evt)} {...this.inputProps} />{rightLabel}
+                {leftLabel}{input}{rightLabel}
             </label>
         </div>);
     }
