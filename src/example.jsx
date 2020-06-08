@@ -34,6 +34,8 @@ class Content extends Component {
                 <hr/>
                 <BootstrapInput parent={this} name="email" type="email" label=": email right label" labelPos={"right"}/>
                 <hr/>
+                <BootstrapInput parent={this} name="noLabelText"/>
+                <hr/>
                 <BootstrapInput parent={this} name="checkbox" type="checkbox" label="Checkbox"/>
                 <BootstrapInput parent={this} name="checkboxLeft" type="checkbox" label="Left side" labelPos={"left"}/>
                 <BootstrapInput parent={this} name="checkboxNoLabel" type="checkbox"/>
