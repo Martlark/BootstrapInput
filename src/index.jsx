@@ -14,6 +14,14 @@ export default class BootstrapInput extends Component {
         // remove specific props and pass rest to the input control
         Object.keys(this.props).filter(prop => !BootstrapInput.propTypes.hasOwnProperty(prop)).forEach(prop => this.inputProps[prop] = this.props[prop]);
     }
+    
+    setValue(){
+        if(this.props.parent){
+            parent.setState({[name]: value});
+        }else{
+            this.props.setValue(value);
+        }
+    }
 
     getInputClassName(props) {
         let className = props.inputClassName;
@@ -33,7 +41,8 @@ export default class BootstrapInput extends Component {
 
     static propTypes = {
         name: PropTypes.string.isRequired,
-        parent: PropTypes.instanceOf(Component).isRequired,
+        parent: PropTypes.instanceOf(Component),
+        setValue: PropTypes.function,
         type: PropTypes.string,
         label: PropTypes.string,
         onChange: PropTypes.func,
@@ -60,7 +69,7 @@ export default class BootstrapInput extends Component {
                 value = checked;
                 break;
         }
-        parent.setState({[name]: value});
+        this.setValue(value);
         this.setState({value: value});
         // call any extra onChange
         if (this.props.onChange) {
@@ -100,6 +109,8 @@ export default class BootstrapInput extends Component {
                 return this.renderRadio(options, name, type);
             case 'select':
                 return this.renderSelect(label, name, state, options);
+            case 'datalist':
+                return this.renderDatalist(label, name, state, options);
             default:
                 return this.renderWithLabel(<input className={this.state.inputClassName} type={type} value={state[name]}
                                                    checked={state[name]} id={this.state.id}
@@ -126,6 +137,31 @@ export default class BootstrapInput extends Component {
             {leftLabel}
             {input}
             {rightLabel}
+        </div>;
+    }
+
+    renderDatalist(label, name, state, options) {
+        const input = <input name={name} value={state[name]} className={this.state.inputClassName} id={this.state.id}
+                             list={'data-list-'+this.state.id}
+                              onChange={evt => this.onChange(evt)} {...this.inputProps}/>;
+
+        const datalist = <datalist id={'data-list-'+this.state.id}>
+            {options.map(option => <option key={option}>{option}</option>)}
+            </datalist>;
+        if (!this.props.label) {
+            return input+datalist;
+        }
+        let leftLabel = <label className={this.props.labelClassName} htmlFor={this.state.id}>{label}</label>;
+        let rightLabel = "";
+        if (this.props.labelPos === "right") {
+            rightLabel = leftLabel;
+            leftLabel = "";
+        }
+        return <div className={"form-group"}>
+            {leftLabel}
+            {input}
+            {rightLabel}
+            {datalist}
         </div>;
     }
 

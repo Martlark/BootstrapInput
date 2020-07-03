@@ -48,7 +48,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "babel-watch": "webpack -p --watch --progress  --env=development --config webpack.config.js",
+    "babel-watch": "webpack -p --watch --progress  --env=development --config webpack.config.js --mode development",
     "build": "webpack -p --progress --config webpack.config.js",
     "build-publish": "npm run-script build && npm publish",
     "dev-build": "webpack --progress -d --config webpack.config.js",
