@@ -147,6 +147,7 @@ Release history
 * 1.1.7 -  7-Jun-2020 added control for label position. Added missing htmlFor setup.
 * 1.1.8 -  8-Jun-2020 remove div and label when no label.
 * 1.1.9 -  8-Jun-2020 remove failed auto conversion to numeric.
+* 1.2.0 - 10-Oct-2021 update vulns
 
 Thanks to.
 ==========
